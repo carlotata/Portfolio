@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ModeToggle } from "./theme-toggle";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -8,57 +9,82 @@ export default function MobileMenu() {
    const [open, setOpen] = useState(false);
 
    return (
-      <div className="sm:hidden w-full relative">
-         {/* Full-width top bar */}
-         <button
-            onClick={() => setOpen(!open)}
-            className="w-full bg-[#8A8A8A] px-4 py-3 shadow-lg flex items-center justify-between"
-            aria-label="Open menu">
-            <span className="text-sm font-semibold uppercase tracking-wide">
-               Menu
-            </span>
+      <div className="sm:hidden w-full relative flex justify-center">
+         <div className="relative w-full max-w-md px-2">
+            {/* Centered menu button */}
+            <button
+               onClick={() => setOpen(!open)}
+               className="w-full bg-[#8A8A8A] py-3 shadow-lg flex items-center justify-center gap-3 rounded-full transition-all duration-300 hover:bg-[#7a7a7a] active:scale-95"
+               aria-label="Toggle menu"
+               aria-expanded={open}>
+               <span className="text-sm font-semibold uppercase tracking-wide">
+                  Menu
+               </span>
 
-            {/* Burger icon */}
-            <div className="space-y-1.5">
-               <span className="block w-5 h-0.5 bg-black" />
-               <span className="block w-5 h-0.5 bg-black" />
-               <span className="block w-5 h-0.5 bg-black" />
-            </div>
-         </button>
+               {/* Animated burger icon */}
+               <div className="space-y-1.5 transition-transform duration-300">
+                  <span
+                     className={`block w-5 h-0.5 bg-black transition-all duration-300 ${
+                        open ? "rotate-45 translate-y-2" : ""
+                     }`}
+                  />
+                  <span
+                     className={`block w-5 h-0.5 bg-black transition-all duration-300 ${
+                        open ? "opacity-0" : ""
+                     }`}
+                  />
+                  <span
+                     className={`block w-5 h-0.5 bg-black transition-all duration-300 ${
+                        open ? "-rotate-45 -translate-y-2" : ""
+                     }`}
+                  />
+               </div>
+            </button>
 
-         {/* Full-width dropdown */}
-         {open && (
-            <div className="absolute left-0 top-full w-full bg-[#acacac] shadow-xl rounded-b-2xl overflow-hidden">
+            {/* Dropdown menu with animation */}
+            <div
+               className={`absolute left-3 right-3 top-full mt-1 bg-[#acacac] shadow-xl rounded-2xl overflow-hidden transition-all duration-300 origin-top ${
+                  open
+                     ? "opacity-100 scale-y-100 translate-y-0"
+                     : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
+               }`}>
                <nav className="flex flex-col divide-y divide-black/10">
+                  <Link
+                     href="/"
+                     onClick={() => setOpen(false)}
+                     className="px-6 py-4 text-sm font-medium hover:bg-black/5 transition-colors duration-200">
+                     Home
+                  </Link>
                   <Link
                      href="/blogs"
                      onClick={() => setOpen(false)}
-                     className="px-6 py-4 text-sm font-medium hover:bg-black/5">
+                     className="px-6 py-4 text-sm font-medium hover:bg-black/5 transition-colors duration-200">
                      Blogs
                   </Link>
                   <Link
                      href="/about"
                      onClick={() => setOpen(false)}
-                     className="px-6 py-4 text-sm font-medium hover:bg-black/5">
+                     className="px-6 py-4 text-sm font-medium hover:bg-black/5 transition-colors duration-200">
                      About Me
                   </Link>
                   <Link
                      href="/projects"
                      onClick={() => setOpen(false)}
-                     className="px-6 py-4 text-sm font-medium hover:bg-black/5">
+                     className="px-6 py-4 text-sm font-medium hover:bg-black/5 transition-colors duration-200">
                      Projects
                   </Link>
 
-                  <div className="p-4">
+                  <div className="flex gap-3 p-4">
                      <Button
-                        className="w-full bg-[#444444] text-white text-xs font-bold py-3 rounded-full hover:bg-black uppercase tracking-wider"
+                        className="flex-1 bg-[#444444] text-white text-xs font-bold py-3 rounded-full hover:bg-black uppercase tracking-wider transition-colors duration-200"
                         onClick={() => setOpen(false)}>
                         Log-in
                      </Button>
+                     <ModeToggle />
                   </div>
                </nav>
             </div>
-         )}
+         </div>
       </div>
    );
 }
