@@ -19,10 +19,12 @@ export default function GuestLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <div className={`${geistSans.variable} ${geistMono.variable} antialiased  bg-[#dedcdc] dark:bg-[#181818] transition-colors duration-300`}>
-         <Navbar />
-         {children}
-         <Footer />
-      </div>
+         <div
+            className={`${geistSans.variable} ${geistMono.variable} antialiased  bg-[#dedcdc] dark:bg-[#181818] transition-colors duration-300`}>
+            <Navbar />
+            {children}
+            <Footer />
+         </div>
+
    );
 }

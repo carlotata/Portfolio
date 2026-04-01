@@ -78,7 +78,7 @@ export default function MobileMenu() {
                      <Button
                         className="flex-1 bg-[#444444] text-white text-xs font-bold py-3 rounded-full hover:bg-black uppercase tracking-wider transition-colors duration-200"
                         onClick={() => setOpen(false)}>
-                        Log-in
+                        MESSAGE NOW
                      </Button>
                      <ModeToggle />
                   </div>

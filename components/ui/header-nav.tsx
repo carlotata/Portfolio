@@ -57,9 +57,6 @@ export default function Navbar() {
                   </Link>
                </nav>
                <ModeToggle />
-               <Button className="bg-[#444444] text-[#E5E5E5] text-xs font-bold px-6 py-2 rounded-full hover:bg-black transition-all duration-300 ease-in-out uppercase tracking-wider">
-                  Log-in
-               </Button>
             </div>
 
             {/* Mobile */}
