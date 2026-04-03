@@ -31,19 +31,9 @@ export default function Mainlayout() {
             JOHN CARL AVISO
          </motion.h1>
 
-         <motion.div
-            initial={{ y: 200, opacity: 0, scale: 0.9 }}
-            animate={{ y: 0, opacity: 1, scale: 1 }}
-            transition={{
-               type: "spring",
-               damping: 20,
-               stiffness: 40,
-               delay: 0.6,
-            }}
-
-            className="absolute inset-0 flex justify-center items-end z-10 pointer-events-none transform -translate-y-20 scale-110 sm:translate-y-0 sm:scale-100">
+         <div className="absolute inset-0 flex justify-center items-end z-10 pointer-events-none transform -translate-y-20 scale-110 sm:translate-y-0 sm:scale-100">
             <HeroImage />
-         </motion.div>
+         </div>
 
          <div className="relative z-20 w-full sm:w-auto sm:mr-auto max-w-sm mt-[45vh] sm:mt-20 mb-10 sm:mb-0">
             <motion.div
@@ -56,7 +46,6 @@ export default function Mainlayout() {
                   delay: 0.8,
                }}
                className="bg-white/80 dark:bg-zinc-900/70 backdrop-blur-xl p-5 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-white/10 mx-2 sm:mx-0">
-
                <div className="absolute -top-2 -right-2 sm:-top-5 sm:-right-5 w-10 h-10 sm:w-12 sm:h-12 bg-[#3D3D3D] dark:bg-white rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg rotate-12">
                   <Sparkles className="text-white dark:text-black w-5 h-5 sm:w-6 sm:h-6" />
                </div>
