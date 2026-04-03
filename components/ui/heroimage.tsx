@@ -41,11 +41,7 @@ export function HeroImage() {
             className="absolute inset-0 h-full object-contain drop-shadow-2xl transition-opacity duration-300 ease-out 
                    opacity-0 group-hover:opacity-100"
          />
-
-         <div
-            className={`absolute -bottom-10 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-widest font-bold transition-opacity duration-500 sm:hidden ${scrollOpacity > 0.1 ? "opacity-0" : "opacity-40"}`}>
-            Scroll or Tap
-         </div>
+         
       </div>
    );
 }

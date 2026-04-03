@@ -17,7 +17,7 @@ export function ContactSection() {
 
       if (result.success) {
          setIsSuccess(true);
-         setTimeout(() => setIsSuccess(false), 5000); 
+         setTimeout(() => setIsSuccess(false), 5000);
       }
    }
 
@@ -53,7 +53,7 @@ export function ContactSection() {
                      <span className="text-white/40">Great Idea?</span>
                   </h3>
                </div>
-               <p className="relative z-10 text-white/60 text-sm font-medium max-w-[250px]">
+               <p className="relative z-10 text-white/60 text-sm font-medium max-w-62.5">
                   Send me a message and let&apos;s turn your vision into
                   reality.
                </p>

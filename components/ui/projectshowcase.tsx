@@ -96,7 +96,7 @@ export function ProjectShowcase() {
                            target="_blank"
                            rel="noopener noreferrer"
                            className="block">
-                           <div className="group relative aspect-[4/5] sm:aspect-square bg-[#D9D9D9] rounded-2xl overflow-hidden cursor-pointer border border-black/5">
+                           <div className="group relative aspect-4/5 sm:aspect-square bg-[#D9D9D9] rounded-2xl overflow-hidden cursor-pointer border border-black/5">
                               <div className="absolute inset-0 flex items-center justify-center">
                                  <img
                                     src={project.image}
