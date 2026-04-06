@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🗂️ John Carl Aviso — Personal Portfolio
 
-## Getting Started
+My personal portfolio website, built with Next.js and deployed on Vercel. A clean, performant showcase of my work, blog posts, skills, and contact information.
 
-First, run the development server:
+🔗 **Live site:** [portfoliocarlaviso.vercel.app](https://portfoliocarlaviso.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📄 Pages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Route | Description |
+|---|---|
+| `/` | Hero landing page with project highlights and contact form |
+| `/about` | Bio, education, tech stack, and downloadable CV |
+| `/projects` | Paginated gallery of personal and academic projects |
+| `/blog` | Blog with category and date filtering |
+| `/contact` | Contact form powered by Resend |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ✨ Features
 
-To learn more about Next.js, take a look at the following resources:
+- Dark / light mode toggle via `next-themes`
+- Smooth page and component animations with Framer Motion
+- Project carousel built with Embla Carousel
+- Contact form with email delivery via Resend
+- AI-assisted features via OpenRouter SDK
+- Fully responsive layout for mobile and desktop
+- Accessible UI components via Radix UI and shadcn/ui
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Tech Stack
 
-## Deploy on Vercel
+| Category | Technologies |
+|---|---|
+| Framework | Next.js 16, React 19, TypeScript |
+| Styling | Tailwind CSS v4, tw-animate-css |
+| UI | Radix UI, shadcn/ui, Lucide React, Framer Motion |
+| Carousel | Embla Carousel |
+| Email | Resend |
+| AI | OpenRouter SDK |
+| Theming | next-themes |
+| Tooling | ESLint, PostCSS |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v18 or higher
+- A [Resend](https://resend.com) API key for the contact form
+- 
+
+---
+
+## 🚀 Deployment
+
+This site is deployed on [Vercel](https://vercel.com). To deploy your own fork:
+
+1. Push your fork to GitHub.
+2. Import the repository at [vercel.com/new](https://vercel.com/new).
+3. Add your environment variables (`RESEND_API_KEY`, etc.) in the Vercel project settings.
+4. Deploy — Vercel will handle the build automatically.
+
+---
+
+## 📬 Contact
+
+**John Carl Aviso**
+Designer & Developer — Cebu City, PH
+📧 avisojohn040@gmail.com
+📱 +63 976 264 2154
+
+- [GitHub](https://github.com/carlotata)
+- [Facebook](https://www.facebook.com/jc.aviso.9/)
+- [Instagram](https://instagram.com/jcarl_012)
+
+---
+
+## 📄 License
+
+This project does not include an open-source license. All design and content rights are reserved by the author.
