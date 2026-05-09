@@ -39,7 +39,7 @@ My personal portfolio website, built with Next.js and deployed on Vercel. A clea
 | UI | Radix UI, shadcn/ui, Lucide React, Framer Motion |
 | Carousel | Embla Carousel |
 | Email | Resend |
-| AI | OpenRouter SDK |
+| AI | Gemini LLM |
 | Theming | next-themes |
 | Tooling | ESLint, PostCSS |
 
