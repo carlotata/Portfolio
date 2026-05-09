@@ -35,6 +35,7 @@ const MAX_INPUT_LENGTH = 500;
 const USER_RATE_LIMIT = 20;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const MAX_HOPS = 10;
+const MAX_HISTORY_MESSAGES = 10; // Cap to avoid token bloat
 
 const rateLimitMap = new Map<string, { count: number; windowStart: number }>();
 setInterval(() => {
@@ -46,17 +47,21 @@ setInterval(() => {
    }
 }, RATE_LIMIT_WINDOW_MS);
 
+interface GeminiContentPart {
+   role: "user" | "model";
+   parts: { text: string }[];
+}
+
 async function fetchGeminiResponse(
    model: string,
    apiKey: string,
-   userMessage: string,
+   contents: GeminiContentPart[],
    systemPrompt: string,
 ) {
    const controller = new AbortController();
    const timeoutId = setTimeout(() => controller.abort(), 10_000);
 
    try {
-      // Note: v1beta endpoint is still best for the latest 'preview' or 'lite' features
       const response = await fetch(
          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
          {
@@ -64,7 +69,7 @@ async function fetchGeminiResponse(
             headers: { "Content-Type": "application/json" },
             signal: controller.signal,
             body: JSON.stringify({
-               contents: [{ parts: [{ text: userMessage.trim() }] }],
+               contents,
                system_instruction: { parts: [{ text: systemPrompt }] },
                generationConfig: {
                   temperature: 0.7,
@@ -115,10 +120,20 @@ export async function POST(req: NextRequest) {
 
    const body = await req.json().catch(() => ({}));
    const userMessage = body?.message;
+   const history: { from: string; text: string }[] = body?.history ?? [];
 
    if (!userMessage || typeof userMessage !== "string" || !userMessage.trim()) {
       return NextResponse.json(
          { answer: "Please enter a message." },
+         { status: 400 },
+      );
+   }
+
+   if (userMessage.trim().length > MAX_INPUT_LENGTH) {
+      return NextResponse.json(
+         {
+            answer: "Message is too long. Please keep it under 500 characters.",
+         },
          { status: 400 },
       );
    }
@@ -135,6 +150,29 @@ BEHAVIOR (YOU ARE AN ASSISTANT):
 PORTFOLIO DATA:
 ${JSON.stringify(portfolioData)}`;
 
+   const trimmedHistory = history
+      .slice(1) 
+      .slice(-MAX_HISTORY_MESSAGES) 
+      .map((msg) => ({
+         role: (msg.from === "user" ? "user" : "model") as "user" | "model",
+         parts: [{ text: msg.text }],
+      }));
+
+   const dedupedHistory = trimmedHistory.reduce<GeminiContentPart[]>(
+      (acc, cur) => {
+         if (acc.length === 0 || acc[acc.length - 1].role !== cur.role) {
+            acc.push(cur);
+         }
+         return acc;
+      },
+      [],
+   );
+
+   const contents: GeminiContentPart[] = [
+      ...dedupedHistory,
+      { role: "user", parts: [{ text: userMessage.trim() }] },
+   ];
+
    let currentKeyIdx = Math.floor(Math.random() * GEMINI_KEYS.length);
    let currentModelIdx = 0;
    let hops = 0;
@@ -147,7 +185,7 @@ ${JSON.stringify(portfolioData)}`;
          const { response, data } = await fetchGeminiResponse(
             model,
             apiKey,
-            userMessage,
+            contents,
             systemPrompt,
          );
 
