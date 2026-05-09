@@ -87,6 +87,11 @@ const TypingIndicator = () => (
    </div>
 );
 
+const GREETING_MESSAGE: Message = {
+   from: "ai",
+   text: "Hi! I'm **John Carl's** portfolio assistant.\n\nI can help you explore his work in **frontend development** and **UI/UX design** — including projects, tech stack, and more.\n\nWhat would you like to know?",
+};
+
 const ChatWidget = () => {
    const [isOpen, setIsOpen] = useState(false);
    const [messages, setMessages] = useState<Message[]>([]);
@@ -102,18 +107,13 @@ const ChatWidget = () => {
       if (isOpen) {
          setTimeout(() => inputRef.current?.focus(), 100);
          if (messageCount === 0) {
-            setMessages([
-               {
-                  from: "ai",
-                  text: "Hi! I'm **John Carl's** portfolio assistant.\n\nI can help you explore his work in **frontend development** and **UI/UX design** — including projects, tech stack, and more.\n\nWhat would you like to know?",
-               },
-            ]);
+            setMessages([GREETING_MESSAGE]);
          }
          setTimeout(() => {
             bottomRef.current?.scrollIntoView({ behavior: "instant" });
          }, 50);
       }
-   }, [isOpen, messageCount]); 
+   }, [isOpen, messageCount]);
 
    useEffect(() => {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -129,6 +129,8 @@ const ChatWidget = () => {
       if (!input.trim() || loading) return;
 
       const userMessage = input.trim();
+      const currentMessages = messages;
+
       setMessages((prev) => [...prev, { from: "user", text: userMessage }]);
       setInput("");
       setLoading(true);
@@ -140,14 +142,16 @@ const ChatWidget = () => {
          const res = await fetch("/api/openrouter", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: userMessage }),
-            signal: controller.signal, 
+            body: JSON.stringify({
+               message: userMessage,
+               history: currentMessages,
+            }),
+            signal: controller.signal,
          });
 
          const data = await res.json();
          setMessages((prev) => [...prev, { from: "ai", text: data.answer }]);
       } catch (err) {
-
          if (err instanceof Error && err.name === "AbortError") return;
          setMessages((prev) => [
             ...prev,
@@ -157,7 +161,7 @@ const ChatWidget = () => {
          setLoading(false);
          abortControllerRef.current = null;
       }
-   }, [input, loading]);
+   }, [input, loading, messages]); 
 
    return (
       <>
